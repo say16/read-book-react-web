@@ -4,15 +4,8 @@ import { selectFile, selectNumPages, setPage } from '@/store/slices/pdfViewerSli
 
 import { Document } from 'react-pdf'
 import ThumbnailItem from '@/components/atoms/thumbnail-item'
-import { cn } from '@/utils/shadcnUtils'
 
-type Props = {
-  orientation: 'vertical' | 'horizontal'
-}
-
-function ThumbnailSection(props: Props) {
-  const { orientation } = props
-
+function ThumbnailSection() {
   const dispatch = useDispatch()
   const file = useSelector(selectFile)
   const numPages = useSelector(selectNumPages)
@@ -26,17 +19,13 @@ function ThumbnailSection(props: Props) {
       <div className='group relative h-full w-full'>
         <ScrollArea className='size-full'>
           <Document file={file} className='size-full p-4'>
-            <div
-              className={cn('flex items-center gap-1', {
-                'flex-col': orientation === 'vertical'
-              })}
-            >
+            <div className='grid grid-cols-2 flex-col items-center gap-1'>
               {Array.from({ length: numPages }, (_, index) => (
                 <ThumbnailItem key={index} pageNumber={index + 1} onClick={() => handleThumbnailClick(index + 1)} />
               ))}
             </div>
           </Document>
-          <ScrollBar orientation={orientation} />
+          <ScrollBar orientation='vertical' />
         </ScrollArea>
       </div>
     )

@@ -13,7 +13,7 @@ function App() {
     <Provider store={store}>
       <div className='mx-auto flex'>
         <Aside />
-        <div className='flex size-full flex-col gap-4 p-4'>
+        <div className='flex size-full flex-1 flex-col gap-4 p-4'>
           <Header />
           <PDFViewer />
         </div>
