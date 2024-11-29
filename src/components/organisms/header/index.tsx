@@ -1,6 +1,6 @@
+import FileUploadSection from '@/components/atoms/molecules/file-upload-section'
+import PageNumberSection from '@/components/atoms/molecules/page-number-section'
 import { Card } from '@/components/ui/card'
-import FileUploadSection from './file-upload-section'
-import PageNumberSection from './page-number-section'
 
 function Header() {
   return (

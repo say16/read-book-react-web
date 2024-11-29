@@ -1,5 +1,5 @@
-import ThumbnailSection from './thumbnail-section'
-import PageSection from './page-section'
+import PageSection from '@/components/atoms/molecules/page-section'
+import ThumbnailSection from '@/components/atoms/molecules/thumbnail-section'
 
 function PDFViewer() {
   return (
