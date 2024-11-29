@@ -1,16 +1,19 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { IconPlus } from '@tabler/icons-react'
-import { setFile } from '@/store/slices/pdfViewerSlice'
 import { Button } from '@/components/ui/button'
+import db from '@/utils/dexie/db'
+import { setSelectedFileId } from '@/store/slices/pdfViewerSlice'
 
 function FileUploadSection() {
   const dispatch = useDispatch()
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (file) {
-      dispatch(setFile(URL.createObjectURL(file)))
+      const id = await db.pdfFiles.add({ file })
+
+      dispatch(setSelectedFileId(id))
     }
   }
 

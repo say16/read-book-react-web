@@ -4,7 +4,7 @@ import { Card } from '@/components/ui/card'
 
 function Header() {
   return (
-    <header className='sticky top-4 z-30'>
+    <header className='sticky top-0 z-30'>
       <Card className='p-4'>
         <div className='flex items-end justify-between gap-4'>
           <PageNumberSection />

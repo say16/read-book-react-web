@@ -20,7 +20,7 @@ const ThumbnailItem: React.FC<ThumbnailItemProps> = ({ pageNumber, onClick }) =>
         'border-2 border-blue-500': isSelected
       })}
     >
-      <Page pageNumber={pageNumber} height={100} />
+      <Page pageNumber={pageNumber} height={80} />
     </div>
   )
 }

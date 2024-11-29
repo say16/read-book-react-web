@@ -2,24 +2,26 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../../store'
 
 interface PdfViewerState {
-  file: string | null
+  selectedFileId: number | null
   page: number
   numPages: number
+  fileObjectUrl: string | null
 }
 
 const initialState: PdfViewerState = {
-  file: null,
+  selectedFileId: null,
   page: 0,
-  numPages: 0
+  numPages: 0,
+  fileObjectUrl: null
 }
 
 const pdfViewerSlice = createSlice({
   name: 'pdfViewer',
   initialState,
   reducers: {
-    setFile(state, action: PayloadAction<string | null>) {
+    setSelectedFileId(state, action: PayloadAction<number | null>) {
+      state.selectedFileId = action.payload
       state.page = 1
-      state.file = action.payload
     },
     setPage(state, action: PayloadAction<number>) {
       state.page = action.payload
@@ -28,16 +30,20 @@ const pdfViewerSlice = createSlice({
       state.numPages = action.payload
     },
     resetViewer(state) {
-      state.file = null
+      state.selectedFileId = null
       state.page = 1
+    },
+    setFileObjectUrl(state, action: PayloadAction<string>) {
+      state.fileObjectUrl = action.payload
     }
   }
 })
 
-export const { setFile, setPage, resetViewer, setNumPages } = pdfViewerSlice.actions
+export const { setSelectedFileId, setPage, resetViewer, setNumPages, setFileObjectUrl } = pdfViewerSlice.actions
 
-export const selectFile = (state: RootState) => state.pdfViewer.file
+export const selectSelectedFileId = (state: RootState) => state.pdfViewer.selectedFileId
 export const selectPage = (state: RootState) => state.pdfViewer.page
 export const selectNumPages = (state: RootState) => state.pdfViewer.numPages
+export const selectFileObjectUrl = (state: RootState) => state.pdfViewer.fileObjectUrl
 
 export default pdfViewerSlice.reducer
