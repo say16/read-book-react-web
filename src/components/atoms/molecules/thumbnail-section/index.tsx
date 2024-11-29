@@ -3,10 +3,16 @@ import { useSelector, useDispatch } from 'react-redux'
 import { selectFile, selectNumPages, setPage } from '@/store/slices/pdfViewerSlice'
 
 import { Document } from 'react-pdf'
-import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
 import ThumbnailItem from '@/components/atoms/thumbnail-item'
+import { cn } from '@/utils/shadcnUtils'
 
-function ThumbnailSection() {
+type Props = {
+  orientation: 'vertical' | 'horizontal'
+}
+
+function ThumbnailSection(props: Props) {
+  const { orientation } = props
+
   const dispatch = useDispatch()
   const file = useSelector(selectFile)
   const numPages = useSelector(selectNumPages)
@@ -17,25 +23,20 @@ function ThumbnailSection() {
 
   return (
     numPages > 0 && (
-      <div className='group relative w-full'>
-        <div className='absolute hidden size-full items-center justify-between group-hover:flex'>
-          <div className='z-10 flex h-full w-8 cursor-pointer items-center justify-center bg-muted/75'>
-            <IconChevronLeft />
-          </div>
-          <div className='z-10 flex h-full w-8 cursor-pointer items-center justify-center bg-muted/75'>
-            <IconChevronRight />
-          </div>
-        </div>
-
-        <ScrollArea className='w-full'>
-          <Document file={file} className='w-full'>
-            <div className='flex items-center gap-1'>
+      <div className='group relative h-full w-full'>
+        <ScrollArea className='size-full'>
+          <Document file={file} className='size-full p-4'>
+            <div
+              className={cn('flex items-center gap-1', {
+                'flex-col': orientation === 'vertical'
+              })}
+            >
               {Array.from({ length: numPages }, (_, index) => (
                 <ThumbnailItem key={index} pageNumber={index + 1} onClick={() => handleThumbnailClick(index + 1)} />
               ))}
             </div>
           </Document>
-          <ScrollBar orientation='horizontal' />
+          <ScrollBar orientation={orientation} />
         </ScrollArea>
       </div>
     )

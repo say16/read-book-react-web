@@ -1,11 +1,12 @@
 import PageSection from '@/components/atoms/molecules/page-section'
-import ThumbnailSection from '@/components/atoms/molecules/thumbnail-section'
+import TranslateInfoSection from '@/components/atoms/molecules/translate-info-section'
 
 function PDFViewer() {
   return (
-    <div className='flex size-full flex-1 flex-col items-center justify-center gap-4'>
+    <div className='flex size-full flex-1 flex-wrap items-center justify-center gap-4'>
       <PageSection />
-      <ThumbnailSection />
+      <TranslateInfoSection />
+      <PageSection />
     </div>
   )
 }
