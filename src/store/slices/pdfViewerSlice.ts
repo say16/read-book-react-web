@@ -6,13 +6,15 @@ interface PdfViewerState {
   page: number
   numPages: number
   fileObjectUrl: string | null
+  selectedText: { id: string; text: string } | null
 }
 
 const initialState: PdfViewerState = {
   selectedFileId: null,
   page: 0,
   numPages: 0,
-  fileObjectUrl: null
+  fileObjectUrl: null,
+  selectedText: null
 }
 
 const pdfViewerSlice = createSlice({
@@ -35,15 +37,20 @@ const pdfViewerSlice = createSlice({
     },
     setFileObjectUrl(state, action: PayloadAction<string>) {
       state.fileObjectUrl = action.payload
+    },
+    setSelectedText(state, action: PayloadAction<{ id: string; text: string } | null>) {
+      state.selectedText = action.payload
     }
   }
 })
 
-export const { setSelectedFileId, setPage, resetViewer, setNumPages, setFileObjectUrl } = pdfViewerSlice.actions
+export const { setSelectedFileId, setPage, resetViewer, setNumPages, setFileObjectUrl, setSelectedText } =
+  pdfViewerSlice.actions
 
 export const selectSelectedFileId = (state: RootState) => state.pdfViewer.selectedFileId
 export const selectPage = (state: RootState) => state.pdfViewer.page
 export const selectNumPages = (state: RootState) => state.pdfViewer.numPages
 export const selectFileObjectUrl = (state: RootState) => state.pdfViewer.fileObjectUrl
+export const selectSelectedText = (state: RootState) => state.pdfViewer.selectedText
 
 export default pdfViewerSlice.reducer

@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react'
 import { Card } from '@/components/ui/card'
 import { IconLanguage, IconTransfer } from '@tabler/icons-react'
+import { useSelector } from 'react-redux'
+import { selectSelectedText } from '@/store/slices/pdfViewerSlice'
 
 function DictionaryInfoSection() {
-  const [selectedText, setSelectedText] = useState('')
   const [wordData, setWordData] = useState(null)
   const [errorMessage, setErrorMessage] = useState('')
+  const selectedText = useSelector(selectSelectedText)
 
   const translateText = async text => {
     const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${text}`
@@ -28,35 +30,13 @@ function DictionaryInfoSection() {
   }
 
   useEffect(() => {
-    const handleSelectionChange = () => {
-      const selection = window.getSelection()
-      if (selection && selection.rangeCount > 0) {
-        const range = selection.getRangeAt(0)
-        const selectedElement = range.commonAncestorContainer
-
-        const container = document.querySelector('#page-section-document-container')
-        if (container && container.contains(selectedElement)) {
-          const text = selection.toString().trim()
-          if (text) {
-            const firstWord = text.split(/\s+/)[0]
-            setSelectedText(firstWord)
-            translateText(firstWord)
-          }
-        }
-      }
+    if (selectedText?.text) {
+      translateText(selectedText.text)
     }
-
-    document.addEventListener('mouseup', handleSelectionChange)
-    document.addEventListener('keyup', handleSelectionChange)
-
-    return () => {
-      document.removeEventListener('mouseup', handleSelectionChange)
-      document.removeEventListener('keyup', handleSelectionChange)
-    }
-  }, [])
+  }, [selectedText])
 
   return (
-    <Card className='size-full'>
+    <Card className='size-full min-w-[28rem]'>
       <h2 className='inline-flex w-full items-center gap-1 border-b p-4 text-lg font-bold'>
         <IconLanguage />
         <span>Dictionary</span>
@@ -64,7 +44,7 @@ function DictionaryInfoSection() {
       <div className='flex flex-col gap-2 p-4'>
         <div className='flex flex-wrap items-center gap-2'>
           <p className='font-semibold'>Seçilen Metin:</p>
-          <p>{selectedText || 'Henüz metin seçilmedi.'}</p>
+          <p>{selectedText?.text || 'Henüz metin seçilmedi.'}</p>
         </div>
         <div className='flex flex-wrap items-center gap-2'>
           <IconTransfer />
