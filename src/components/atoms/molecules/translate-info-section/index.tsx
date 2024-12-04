@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Card } from '@/components/ui/card'
 import { IconLanguage, IconTransfer } from '@tabler/icons-react'
 
-function TranslateInfoSection() {
+function DictionaryInfoSection() {
   const [selectedText, setSelectedText] = useState('')
   const [wordData, setWordData] = useState(null)
   const [errorMessage, setErrorMessage] = useState('')
@@ -50,7 +50,7 @@ function TranslateInfoSection() {
     <Card className='size-full'>
       <h2 className='inline-flex w-full items-center gap-1 border-b p-4 text-lg font-bold'>
         <IconLanguage />
-        <span>Selected Text & Translation</span>
+        <span>Selected Text & Dictionary</span>
       </h2>
       <div className='flex flex-col gap-2 p-4'>
         <div className='flex flex-wrap items-center gap-2'>
@@ -141,4 +141,4 @@ function TranslateInfoSection() {
   )
 }
 
-export default TranslateInfoSection
+export default DictionaryInfoSection

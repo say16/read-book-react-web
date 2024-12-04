@@ -15,7 +15,7 @@ const ThumbnailItem: React.FC<ThumbnailItemProps> = ({ pageNumber, onClick }) =>
 
   return (
     <div
-      onClick={onClick}
+      onMouseDown={onClick}
       className={cn('cursor-pointer select-none border border-gray-300 p-1 hover:border-blue-500', {
         'border-2 border-blue-500': isSelected
       })}

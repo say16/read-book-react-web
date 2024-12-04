@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import pdfViewerReducer from './slices/pdfViewerSlice'
+import themeReducer from './slices/themeSlice'
 
 const store = configureStore({
   reducer: {
-    pdfViewer: pdfViewerReducer
+    pdfViewer: pdfViewerReducer,
+    theme: themeReducer
   }
 })
 

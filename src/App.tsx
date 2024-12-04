@@ -1,4 +1,4 @@
-import { Provider, useDispatch, useSelector } from 'react-redux'
+import { Provider } from 'react-redux'
 import Header from './components/organisms/header'
 import PDFViewer from './components/organisms/pdf-viewer'
 import store from './store'
@@ -15,7 +15,7 @@ function App() {
     <Provider store={store}>
       <RootLayout>
         <Aside />
-        <div className='flex size-full flex-1 flex-col gap-4 py-4'>
+        <div className='flex size-full flex-1 flex-col gap-4 py-4 pr-4'>
           <Header />
           <PDFViewer />
         </div>

@@ -29,10 +29,10 @@ function PageNumberSection() {
         <Label className='text-xs'>Page Number:</Label>
         <Input className='w-16' value={page} onChange={handlePageChange} type='text' />
       </div>
-      <Button size='icon' variant='outline' onClick={() => handlePageIncrement('decrement')}>
+      <Button size='icon' variant='outline' onMouseDown={() => handlePageIncrement('decrement')}>
         <IconMinus />
       </Button>
-      <Button size='icon' variant='outline' onClick={() => handlePageIncrement('increment')}>
+      <Button size='icon' variant='outline' onMouseDown={() => handlePageIncrement('increment')}>
         <IconPlus />
       </Button>
     </div>
