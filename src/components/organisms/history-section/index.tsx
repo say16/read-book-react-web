@@ -19,6 +19,7 @@ function HistorySection() {
 
   const handleFileSelect = id => {
     dispatch(setSelectedFileId(id))
+    dispatch(setIsHistoryDrawerOpen(false))
   }
 
   const handleOnCloseDrawer = (e: boolean) => {
@@ -40,8 +41,8 @@ function HistorySection() {
             <ScrollArea>
               {uploadedFiles?.length > 0 ? (
                 <ul className='flex flex-col gap-2 p-4'>
-                  {uploadedFiles?.map(item => (
-                    <div className='flex items-center gap-1'>
+                  {uploadedFiles?.map((item, index) => (
+                    <div key={`history-item-${index}`} className='flex items-center gap-1'>
                       <Button
                         key={item.id}
                         onMouseDown={() => handleFileSelect(item.id)}

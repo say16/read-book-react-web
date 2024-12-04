@@ -16,9 +16,11 @@ function PageSection() {
   return (
     <Card className='flex size-fit min-h-[20rem] min-w-[20rem] items-center justify-center p-2'>
       {fileObjectUrl ? (
-        <Document file={fileObjectUrl} onLoadSuccess={onDocumentLoadSuccess}>
-          <Page pageNumber={page} />
-        </Document>
+        <div id='page-section-document-container'>
+          <Document file={fileObjectUrl} onLoadSuccess={onDocumentLoadSuccess}>
+            <Page pageNumber={page} />
+          </Document>
+        </div>
       ) : (
         <div className='flex flex-col items-center justify-center gap-2 text-xl text-muted-foreground'>
           <IconFileTypePdf className='size-12' />

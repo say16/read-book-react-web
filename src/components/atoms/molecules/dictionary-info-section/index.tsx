@@ -30,10 +30,18 @@ function DictionaryInfoSection() {
   useEffect(() => {
     const handleSelectionChange = () => {
       const selection = window.getSelection()
-      if (selection && selection.toString().trim()) {
-        const text = selection.toString().trim()
-        setSelectedText(text)
-        translateText(text)
+      if (selection && selection.rangeCount > 0) {
+        const range = selection.getRangeAt(0)
+        const selectedElement = range.commonAncestorContainer
+
+        const container = document.querySelector('#page-section-document-container')
+        if (container && container.contains(selectedElement)) {
+          const text = selection.toString().trim()
+          if (text) {
+            setSelectedText(text)
+            translateText(text)
+          }
+        }
       }
     }
 
