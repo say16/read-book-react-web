@@ -7,6 +7,8 @@ import { selectSelectedFileId, setSelectedFileId } from '@/store/slices/pdfViewe
 import { useLiveQuery } from 'dexie-react-hooks'
 import { selectIsHistoryDrawerOpen, setIsHistoryDrawerOpen } from '@/store/slices/themeSlice'
 import { Drawer, DrawerContent } from '@/components/ui/drawer'
+import DeleteItemSection from './delete-item-section'
+import DeleteAllSection from './delete-all-section'
 
 function HistorySection() {
   const dispatch = useDispatch()
@@ -25,26 +27,32 @@ function HistorySection() {
 
   return (
     <Drawer direction='right' open={isHistoryDrawerOpen} onOpenChange={handleOnCloseDrawer}>
-      <DrawerContent className='fixed right-0 top-0 z-50 h-full w-96 bg-background'>
+      <DrawerContent className='fixed right-0 top-0 z-50 h-full w-fit min-w-96 max-w-[40rem] bg-background'>
         <div>
           <div className='flex size-full flex-col'>
-            <h2 className='inline-flex items-center gap-1 border-b p-4 text-lg font-bold'>
-              <IconHistory />
-              <span>Uploaded Files:</span>
-            </h2>
+            <div className='flex items-center justify-between border-b p-4'>
+              <h2 className='inline-flex items-center gap-1 text-lg font-bold'>
+                <IconHistory />
+                <span>Uploaded Files</span>
+              </h2>
+              {uploadedFiles?.length > 0 && <DeleteAllSection />}
+            </div>
             <ScrollArea>
               {uploadedFiles?.length > 0 ? (
                 <ul className='flex flex-col gap-2 p-4'>
                   {uploadedFiles?.map(item => (
-                    <Button
-                      key={item.id}
-                      onMouseDown={() => handleFileSelect(item.id)}
-                      variant={item.id === selectedFileId ? 'default' : 'outline'}
-                      className='h-full justify-start whitespace-normal text-start text-xs'
-                    >
-                      <IconPdf />
-                      <p>{item.file.name}</p>
-                    </Button>
+                    <div className='flex items-center gap-1'>
+                      <Button
+                        key={item.id}
+                        onMouseDown={() => handleFileSelect(item.id)}
+                        variant={item.id === selectedFileId ? 'default' : 'outline'}
+                        className='h-full flex-1 justify-start whitespace-normal text-start text-xs'
+                      >
+                        <IconPdf />
+                        <p>{item.file.name}</p>
+                      </Button>
+                      <DeleteItemSection item={item} />
+                    </div>
                   ))}
                 </ul>
               ) : (
