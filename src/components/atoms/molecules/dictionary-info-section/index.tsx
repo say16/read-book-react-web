@@ -38,8 +38,9 @@ function DictionaryInfoSection() {
         if (container && container.contains(selectedElement)) {
           const text = selection.toString().trim()
           if (text) {
-            setSelectedText(text)
-            translateText(text)
+            const firstWord = text.split(/\s+/)[0]
+            setSelectedText(firstWord)
+            translateText(firstWord)
           }
         }
       }
@@ -58,7 +59,7 @@ function DictionaryInfoSection() {
     <Card className='size-full'>
       <h2 className='inline-flex w-full items-center gap-1 border-b p-4 text-lg font-bold'>
         <IconLanguage />
-        <span>Selected Text & Dictionary</span>
+        <span>Dictionary</span>
       </h2>
       <div className='flex flex-col gap-2 p-4'>
         <div className='flex flex-wrap items-center gap-2'>
@@ -73,11 +74,6 @@ function DictionaryInfoSection() {
 
         {wordData ? (
           <div className='flex flex-col gap-4'>
-            <div>
-              <h3 className='font-semibold'>Kelime:</h3>
-              <p>{wordData.word || 'Bulunamadı.'}</p>
-            </div>
-
             <div>
               <h3 className='font-semibold'>Fonetikler:</h3>
               {wordData.phonetics.length > 0 ? (
