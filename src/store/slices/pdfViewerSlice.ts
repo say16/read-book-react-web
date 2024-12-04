@@ -24,9 +24,11 @@ const pdfViewerSlice = createSlice({
     setSelectedFileId(state, action: PayloadAction<number | null>) {
       state.selectedFileId = action.payload
       state.page = 1
+      state.selectedText = null
     },
     setPage(state, action: PayloadAction<number>) {
       state.page = action.payload
+      state.selectedText = null
     },
     setNumPages(state, action: PayloadAction<number>) {
       state.numPages = action.payload

@@ -17,7 +17,7 @@ function PageSection() {
   const selectedText = useSelector(selectSelectedText)
   const page = useSelector(selectPage)
   const fileObjectUrl = useSelector(selectFileObjectUrl)
-  const [words, setWords] = useState([])
+  const [pdfRows, setPdfRows] = useState([])
 
   const onDocumentLoadSuccess = ({ numPages }) => {
     dispatch(setNumPages(numPages))
@@ -26,14 +26,14 @@ function PageSection() {
   const onPageLoadSuccess = async pdfPage => {
     const textContent = await pdfPage.getTextContent()
     const textItems = textContent.items
-    const extractedWords = textItems.map(item => item.str.split(' ')).flat()
-    setWords(extractedWords)
+    setPdfRows(textItems)
   }
 
   const handleWordClick = data => {
     const cleanedText = data.text.replace(/[^\w\s]|_/g, '').trim()
     dispatch(setSelectedText({ ...data, text: cleanedText }))
   }
+
   return (
     <Card className='flex size-fit min-h-[20rem] min-w-[20rem] items-center justify-center p-2'>
       {fileObjectUrl ? (
@@ -42,25 +42,32 @@ function PageSection() {
             <Page pageNumber={page} onLoadSuccess={onPageLoadSuccess} width={500} />
           </Document>
           <div className='flex-1 p-4'>
-            <div className='inline-flex flex-wrap gap-x-1 text-sm'>
-              {words?.map((word, index) => (
-                <span
-                  id={`${word}-${index}`}
-                  key={index}
-                  className={cn('cursor-pointer hover:underline', {
-                    'bg-primary text-primary-foreground': selectedText?.id === `${word}-${index}`,
-                    'hover:text-primary': selectedText?.id !== `${word}-${index}`
-                  })}
-                  onClick={() =>
-                    handleWordClick({
-                      id: `${word}-${index}`,
-                      text: word
-                    })
-                  }
-                >
-                  {word}
-                </span>
-              ))}
+            <div className='flex flex-col text-sm'>
+              {pdfRows.map((rowItem, rowIndex) => {
+                const rowWords = rowItem?.str.split(' ')
+                return (
+                  <div key={`row-${rowIndex}`}>
+                    {rowWords.map((word, wordIndex) => (
+                      <span
+                        id={`word-${rowIndex}-${wordIndex}`}
+                        key={`word-${rowIndex}-${wordIndex}`}
+                        className={cn('cursor-pointer hover:underline', {
+                          'bg-primary text-primary-foreground': selectedText?.id === `word-${rowIndex}-${wordIndex}`,
+                          'hover:text-primary': selectedText?.id !== `word-${rowIndex}-${wordIndex}`
+                        })}
+                        onClick={() =>
+                          handleWordClick({
+                            id: `word-${rowIndex}-${wordIndex}`,
+                            text: word
+                          })
+                        }
+                      >
+                        {word}{' '}
+                      </span>
+                    ))}
+                  </div>
+                )
+              })}
             </div>
           </div>
         </div>
