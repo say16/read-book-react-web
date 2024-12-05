@@ -14,7 +14,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.min.m
 function App() {
   return (
     <Provider store={store}>
-      <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
+      <ThemeProvider defaultTheme='light' storageKey='vite-ui-theme'>
         <RootLayout>
           <Aside />
           <div className='flex size-full flex-1 flex-col gap-4 py-4 pr-4'>
