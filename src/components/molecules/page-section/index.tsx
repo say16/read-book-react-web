@@ -18,7 +18,7 @@ function PageSection() {
   }
 
   return (
-    <Card className='flex size-fit min-h-[20rem] min-w-[20rem] items-center justify-center p-2'>
+    <Card className='flex size-fit min-h-[50rem] min-w-[40rem] items-center justify-center p-2'>
       {fileObjectUrl ? (
         <Document file={fileObjectUrl} onLoadSuccess={onDocumentLoadSuccess}>
           <Page
