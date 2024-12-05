@@ -3,12 +3,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { selectFileObjectUrl, selectPageNumber, setNumPages, setSentences } from '@/store/slices/pdfViewerSlice'
 import { Card } from '@/components/ui/card'
 import { IconFileTypePdf } from '@tabler/icons-react'
-import useMarkClick from '@/utils/mark/useMarkClick'
 import { useTheme } from '@/utils/theme-provider'
 
 function PageSection() {
   const dispatch = useDispatch()
-  const { customTextRenderer } = useMarkClick()
   const { theme } = useTheme()
   const page = useSelector(selectPageNumber)
   const fileObjectUrl = useSelector(selectFileObjectUrl)
@@ -35,7 +33,6 @@ function PageSection() {
         >
           <Page
             pageNumber={page}
-            customTextRenderer={customTextRenderer}
             canvasBackground={theme === 'light' ? 'white' : '#060818'}
             onLoadSuccess={onPageLoadSuccess}
           />

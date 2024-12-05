@@ -4,6 +4,7 @@ import { selectSentences } from '@/store/slices/pdfViewerSlice'
 import { IconBlockquote, IconTextGrammar } from '@tabler/icons-react'
 import { useSelector } from 'react-redux'
 import Flag from 'react-flagkit'
+import SentenceItemClickableWords from '@/components/atoms/sentence-item-clickable-words'
 
 function SentenceSection() {
   const sentences = useSelector(selectSentences)
@@ -14,18 +15,24 @@ function SentenceSection() {
         <IconBlockquote />
         <span>Sentences</span>
       </h2>
-      {sentences?.[0] ? (
+      {sentences.length > 0 && sentences?.[0] ? (
         <ScrollArea>
-          <div className='flex-col divide-y-2 p-4 text-sm'>
-            {sentences?.map((sentence, index) => (
-              <div key={index} className='flex flex-col gap-1 py-2'>
+          <div className='flex-col divide-y-2 p-4 font-serif text-sm'>
+            {sentences?.map((sentence, sentenceIndex) => (
+              <div key={sentenceIndex} className='flex flex-col gap-1 py-2'>
                 <div className='inline-flex gap-1'>
                   <Flag country='US' className='mt-0.5 inline-block size-4 rounded-full object-cover' />
-                  <span>{sentence}</span>
+                  <span>
+                    <SentenceItemClickableWords sentence={sentence} sentenceIndex={sentenceIndex} />
+                  </span>
                 </div>
                 <div className='inline-flex gap-1'>
                   <Flag country='TR' className='mt-0.5 inline-block size-4 rounded-full object-cover' />
-                  <span>{sentence}</span>
+                  <span className='cursor-not-allowed opacity-50'>
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quae obcaecati dolores minus reprehenderit
+                    eligendi. Est corporis eligendi provident voluptas rem unde quae nemo deleniti aliquid, molestiae
+                    modi consectetur dolores quo.
+                  </span>
                 </div>
               </div>
             ))}
