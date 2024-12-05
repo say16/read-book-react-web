@@ -4,22 +4,22 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { IconMinus, IconPlus } from '@tabler/icons-react'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectPage, setPage } from '@/store/slices/pdfViewerSlice'
+import { selectPageNumber, setPageNumber } from '@/store/slices/pdfViewerSlice'
 
 function PageNumberSection() {
   const dispatch = useDispatch()
-  const page = useSelector(selectPage)
+  const page = useSelector(selectPageNumber)
 
   const handlePageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newPage = parseInt(e.target.value, 10)
-    dispatch(setPage(newPage || 0))
+    dispatch(setPageNumber(newPage || 0))
   }
 
   const handlePageIncrement = (type: 'increment' | 'decrement') => {
     if (type === 'increment') {
-      dispatch(setPage(page + 1))
+      dispatch(setPageNumber(page + 1))
     } else if (type === 'decrement' && page > 1) {
-      dispatch(setPage(page - 1))
+      dispatch(setPageNumber(page - 1))
     }
   }
 

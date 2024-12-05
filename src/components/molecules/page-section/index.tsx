@@ -1,6 +1,6 @@
 import { Document, Page } from 'react-pdf'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectFileObjectUrl, selectPage, setNumPages, setSentences } from '@/store/slices/pdfViewerSlice'
+import { selectFileObjectUrl, selectPageNumber, setNumPages, setSentences } from '@/store/slices/pdfViewerSlice'
 import { Card } from '@/components/ui/card'
 import { IconFileTypePdf } from '@tabler/icons-react'
 import useMarkClick from '@/utils/mark/useMarkClick'
@@ -10,7 +10,7 @@ function PageSection() {
   const dispatch = useDispatch()
   const { customTextRenderer } = useMarkClick()
   const { theme } = useTheme()
-  const page = useSelector(selectPage)
+  const page = useSelector(selectPageNumber)
   const fileObjectUrl = useSelector(selectFileObjectUrl)
 
   const onDocumentLoadSuccess = ({ numPages }) => {

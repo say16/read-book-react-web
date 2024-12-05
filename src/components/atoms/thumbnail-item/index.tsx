@@ -2,7 +2,7 @@ import React from 'react'
 import { Page } from 'react-pdf'
 import { cn } from '@/utils/shadcnUtils'
 import { useSelector } from 'react-redux'
-import { selectPage } from '@/store/slices/pdfViewerSlice'
+import { selectPageNumber } from '@/store/slices/pdfViewerSlice'
 
 interface ThumbnailItemProps {
   pageNumber: number
@@ -10,7 +10,7 @@ interface ThumbnailItemProps {
 }
 
 const ThumbnailItem: React.FC<ThumbnailItemProps> = ({ pageNumber, onClick }) => {
-  const page = useSelector(selectPage)
+  const page = useSelector(selectPageNumber)
   const isSelected = page === pageNumber
 
   return (

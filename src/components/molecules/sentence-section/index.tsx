@@ -8,7 +8,6 @@ import Flag from 'react-flagkit'
 function SentenceSection() {
   const sentences = useSelector(selectSentences)
 
-  console.log(sentences, 'sentences')
   return (
     <Card className='flex flex-1 flex-col'>
       <h2 className='inline-flex w-full items-center gap-1 border-b p-4 text-lg font-bold'>

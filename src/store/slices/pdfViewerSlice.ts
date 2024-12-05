@@ -3,7 +3,7 @@ import { RootState } from '../../store'
 
 interface PdfViewerState {
   selectedFileId: number | null
-  page: number
+  pageNumber: number
   numPages: number
   fileObjectUrl: string | null
   selectedText: { id: string; text: string } | null
@@ -12,7 +12,7 @@ interface PdfViewerState {
 
 const initialState: PdfViewerState = {
   selectedFileId: null,
-  page: 0,
+  pageNumber: 0,
   numPages: 0,
   fileObjectUrl: null,
   selectedText: null,
@@ -25,11 +25,11 @@ const pdfViewerSlice = createSlice({
   reducers: {
     setSelectedFileId(state, action: PayloadAction<number | null>) {
       state.selectedFileId = action.payload
-      state.page = 1
+      state.pageNumber = 1
       state.selectedText = null
     },
-    setPage(state, action: PayloadAction<number>) {
-      state.page = action.payload
+    setPageNumber(state, action: PayloadAction<number>) {
+      state.pageNumber = action.payload
       state.selectedText = null
     },
     setNumPages(state, action: PayloadAction<number>) {
@@ -37,7 +37,7 @@ const pdfViewerSlice = createSlice({
     },
     resetViewer(state) {
       state.selectedFileId = null
-      state.page = 1
+      state.pageNumber = 1
       state.sentences = []
     },
     setFileObjectUrl(state, action: PayloadAction<string>) {
@@ -52,11 +52,18 @@ const pdfViewerSlice = createSlice({
   }
 })
 
-export const { setSelectedFileId, setPage, resetViewer, setNumPages, setFileObjectUrl, setSelectedText, setSentences } =
-  pdfViewerSlice.actions
+export const {
+  setSelectedFileId,
+  setPageNumber,
+  resetViewer,
+  setNumPages,
+  setFileObjectUrl,
+  setSelectedText,
+  setSentences
+} = pdfViewerSlice.actions
 
 export const selectSelectedFileId = (state: RootState) => state.pdfViewer.selectedFileId
-export const selectPage = (state: RootState) => state.pdfViewer.page
+export const selectPageNumber = (state: RootState) => state.pdfViewer.pageNumber
 export const selectNumPages = (state: RootState) => state.pdfViewer.numPages
 export const selectFileObjectUrl = (state: RootState) => state.pdfViewer.fileObjectUrl
 export const selectSelectedText = (state: RootState) => state.pdfViewer.selectedText
