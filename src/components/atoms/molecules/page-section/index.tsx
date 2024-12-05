@@ -3,11 +3,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { selectFileObjectUrl, selectPage, setNumPages } from '@/store/slices/pdfViewerSlice'
 import { Card } from '@/components/ui/card'
 import { IconFileTypePdf } from '@tabler/icons-react'
-import { customTextRenderer } from '@/utils/mark/customTextRenderer'
-import useMarkClickListener from '@/utils/mark/useMarkClickListener'
+import useMarkClick from '@/utils/mark/useMarkClick'
 
 function PageSection() {
-  useMarkClickListener()
+  const { customTextRenderer } = useMarkClick()
   const dispatch = useDispatch()
   const page = useSelector(selectPage)
   const fileObjectUrl = useSelector(selectFileObjectUrl)
