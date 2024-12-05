@@ -1,6 +1,6 @@
 import { Document, Page } from 'react-pdf'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectFileObjectUrl, selectPage, setNumPages } from '@/store/slices/pdfViewerSlice'
+import { selectFileObjectUrl, selectPage, setNumPages, setSentences } from '@/store/slices/pdfViewerSlice'
 import { Card } from '@/components/ui/card'
 import { IconFileTypePdf } from '@tabler/icons-react'
 import useMarkClick from '@/utils/mark/useMarkClick'
@@ -17,14 +17,27 @@ function PageSection() {
     dispatch(setNumPages(numPages))
   }
 
+  const onPageLoadSuccess = async pdfPage => {
+    const textContent = await pdfPage.getTextContent()
+    const textItems = textContent.items
+    const fullText = textItems.map(item => item.str).join(' ')
+    const splitSentences = fullText.split(/(?<=[.!?])\s+/)
+    dispatch(setSentences(splitSentences))
+  }
+
   return (
-    <Card className='flex size-fit min-h-[50rem] min-w-[40rem] items-center justify-center p-2'>
+    <Card className='flex size-fit min-h-[52rem] min-w-[40rem] items-center justify-center p-2'>
       {fileObjectUrl ? (
-        <Document file={fileObjectUrl} onLoadSuccess={onDocumentLoadSuccess}>
+        <Document
+          file={fileObjectUrl}
+          onLoadSuccess={onDocumentLoadSuccess}
+          onLoadError={error => console.error('Error loading document:', error)}
+        >
           <Page
             pageNumber={page}
             customTextRenderer={customTextRenderer}
             canvasBackground={theme === 'light' ? 'white' : '#060818'}
+            onLoadSuccess={onPageLoadSuccess}
           />
         </Document>
       ) : (
