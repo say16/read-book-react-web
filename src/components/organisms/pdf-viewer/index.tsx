@@ -1,5 +1,5 @@
-import PageSection from '@/components/atoms/molecules/page-section'
-import DictionaryInfoSection from '@/components/atoms/molecules/dictionary-info-section'
+import PageSection from '@/components/molecules/page-section'
+import DictionaryInfoSection from '@/components/molecules/dictionary-info-section'
 
 function PDFViewer() {
   return (

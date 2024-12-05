@@ -32,6 +32,8 @@ function DictionaryInfoSection() {
   useEffect(() => {
     if (selectedText?.text) {
       translateText(selectedText.text)
+    } else {
+      setWordData(null)
     }
   }, [selectedText])
 

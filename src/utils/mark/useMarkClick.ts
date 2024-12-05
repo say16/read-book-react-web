@@ -35,7 +35,7 @@ function useMarkClick() {
           .map((word, index) => {
             const markId = `word-${itemIndex}-${index}`
             const isSelected = selectedTextData?.id === markId
-            return `<mark id="${markId}" class="text-foreground bg-background cursor-pointer hover:bg-primary hover:text-primary-foreground ${
+            return `<mark id="${markId}" class="text-black bg-white cursor-pointer hover:bg-primary hover:text-primary-foreground ${
               isSelected ? 'bg-primary text-primary-foreground' : ''
             }">${word}</mark>`
           })

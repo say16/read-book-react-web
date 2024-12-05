@@ -1,4 +1,4 @@
-import ThumbnailSection from '@/components/atoms/molecules/thumbnail-section'
+import ThumbnailSection from '@/components/molecules/thumbnail-section'
 import { IconLibraryPhoto } from '@tabler/icons-react'
 
 function Aside() {
