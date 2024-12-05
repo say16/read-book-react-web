@@ -30,8 +30,7 @@ function SentenceSection() {
                   <Flag country='TR' className='mt-0.5 inline-block size-4 rounded-full object-cover' />
                   <span className='cursor-not-allowed opacity-50'>
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quae obcaecati dolores minus reprehenderit
-                    eligendi. Est corporis eligendi provident voluptas rem unde quae nemo deleniti aliquid, molestiae
-                    modi consectetur dolores quo.
+                    eligendi.
                   </span>
                 </div>
               </div>

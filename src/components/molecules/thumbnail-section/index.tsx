@@ -1,14 +1,17 @@
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useState, useEffect, memo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { selectFileObjectUrl, selectNumPages, setPageNumber } from '@/store/slices/pdfViewerSlice'
+import { selectFileObjectUrl, selectNumPages, selectPageNumber, setPageNumber } from '@/store/slices/pdfViewerSlice'
 import { Document } from 'react-pdf'
 import ThumbnailItem from '@/components/atoms/thumbnail-item'
 import { VList } from 'virtua'
+import { useTheme } from '@/utils/theme-provider'
 
 function ThumbnailSection() {
+  const { theme } = useTheme()
   const dispatch = useDispatch()
   const numPages = useSelector(selectNumPages)
   const fileObjectUrl = useSelector(selectFileObjectUrl)
+  const currentPageNumber = useSelector(selectPageNumber)
 
   const containerRef = useRef(null)
   const [containerHeight, setContainerHeight] = useState(0)
@@ -42,7 +45,13 @@ function ThumbnailSection() {
         <Document file={fileObjectUrl} className='h-full'>
           <VList ref={listRef} style={{ height: containerHeight }} className='p-4'>
             {Array.from({ length: numPages }, (_, index) => (
-              <ThumbnailItem key={index} pageNumber={index + 1} onClick={() => handleThumbnailClick(index + 1)} />
+              <ThumbnailItem
+                key={index}
+                pageNumber={index + 1}
+                onClick={() => handleThumbnailClick(index + 1)}
+                currentPageNumber={currentPageNumber}
+                theme={theme}
+              />
             ))}
           </VList>
         </Document>
@@ -51,4 +60,4 @@ function ThumbnailSection() {
   )
 }
 
-export default ThumbnailSection
+export default memo(ThumbnailSection)

@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectSelectedFileId, setFileObjectUrl } from '@/store/slices/pdfViewerSlice'
+import { selectSelectedFileId, setFileObjectUrl, setSelectedFileMetadata } from '@/store/slices/pdfViewerSlice'
 import db from '@/utils/dexie/db'
 
 interface RootLayoutProps {
@@ -20,6 +20,14 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
   useEffect(() => {
     if (file) {
       dispatch(setFileObjectUrl(URL.createObjectURL(file)))
+
+      const metadata = {
+        id: selectedFileId || 0,
+        type: file.type,
+        name: file.name,
+        size: file.size
+      }
+      dispatch(setSelectedFileMetadata(metadata))
     }
   }, [file])
 

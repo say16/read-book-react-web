@@ -1,6 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../../store'
 
+interface FileMetadata {
+  id: number
+  type: string
+  name: string
+  size: number
+}
+
 interface PdfViewerState {
   selectedFileId: number | null
   pageNumber: number
@@ -8,6 +15,7 @@ interface PdfViewerState {
   fileObjectUrl: string | null
   selectedText: { id: string; text: string } | null
   sentences: string[]
+  selectedFileMetadata: FileMetadata | null
 }
 
 const initialState: PdfViewerState = {
@@ -16,7 +24,8 @@ const initialState: PdfViewerState = {
   numPages: 0,
   fileObjectUrl: null,
   selectedText: null,
-  sentences: []
+  sentences: [],
+  selectedFileMetadata: null
 }
 
 const pdfViewerSlice = createSlice({
@@ -39,6 +48,7 @@ const pdfViewerSlice = createSlice({
       state.selectedFileId = null
       state.pageNumber = 1
       state.sentences = []
+      state.selectedFileMetadata = null
     },
     setFileObjectUrl(state, action: PayloadAction<string>) {
       state.fileObjectUrl = action.payload
@@ -48,6 +58,9 @@ const pdfViewerSlice = createSlice({
     },
     setSentences(state, action: PayloadAction<string[]>) {
       state.sentences = action.payload
+    },
+    setSelectedFileMetadata(state, action: PayloadAction<FileMetadata | null>) {
+      state.selectedFileMetadata = action.payload
     }
   }
 })
@@ -59,7 +72,8 @@ export const {
   setNumPages,
   setFileObjectUrl,
   setSelectedText,
-  setSentences
+  setSentences,
+  setSelectedFileMetadata
 } = pdfViewerSlice.actions
 
 export const selectSelectedFileId = (state: RootState) => state.pdfViewer.selectedFileId
@@ -68,5 +82,6 @@ export const selectNumPages = (state: RootState) => state.pdfViewer.numPages
 export const selectFileObjectUrl = (state: RootState) => state.pdfViewer.fileObjectUrl
 export const selectSelectedText = (state: RootState) => state.pdfViewer.selectedText
 export const selectSentences = (state: RootState) => state.pdfViewer.sentences
+export const selectSelectedFileMetadata = (state: RootState) => state.pdfViewer.selectedFileMetadata
 
 export default pdfViewerSlice.reducer

@@ -1,28 +1,35 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Page } from 'react-pdf'
 import { cn } from '@/utils/shadcnUtils'
-import { useSelector } from 'react-redux'
-import { selectPageNumber } from '@/store/slices/pdfViewerSlice'
 
 interface ThumbnailItemProps {
   pageNumber: number
+  currentPageNumber: number
   onClick: () => void
+  theme: 'light' | 'dark' | 'system'
 }
 
-const ThumbnailItem: React.FC<ThumbnailItemProps> = ({ pageNumber, onClick }) => {
-  const page = useSelector(selectPageNumber)
-  const isSelected = page === pageNumber
+const ThumbnailItem: React.FC<ThumbnailItemProps> = ({ currentPageNumber, pageNumber, onClick, theme }) => {
+  const isSelected = currentPageNumber === pageNumber
 
   return (
     <div
       onMouseDown={onClick}
       className={cn('cursor-pointer select-none border border-gray-300 p-1 hover:border-primary', {
-        'border-2 border-primary': isSelected
+        'border-primary': isSelected
       })}
     >
-      <Page pageNumber={pageNumber} height={80} />
+      <Page
+        pageNumber={pageNumber}
+        canvasBackground={theme === 'light' ? 'white' : '#060818'}
+        height={80}
+        customTextRenderer={({ str, itemIndex }) => {
+          return `<span id="${str}-${itemIndex}" class="!text-foreground !bg-background">${str}</span>`
+        }}
+        renderMode='canvas'
+      />
     </div>
   )
 }
 
-export default ThumbnailItem
+export default memo(ThumbnailItem)

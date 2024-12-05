@@ -8,13 +8,13 @@ function PDFViewer() {
   const fileObjectUrl = useSelector(selectFileObjectUrl)
 
   return (
-    <div className='flex size-full flex-1 items-start justify-center gap-4'>
+    <div className='flex h-full max-h-[46em] flex-1 gap-4'>
       <PageSection />
       {fileObjectUrl && (
-        <div className='flex h-[52rem] flex-1 gap-4'>
+        <>
           <SentenceSection />
           <DictionaryInfoSection />
-        </div>
+        </>
       )}
     </div>
   )

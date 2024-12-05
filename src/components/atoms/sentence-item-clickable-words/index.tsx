@@ -20,16 +20,16 @@ const SentenceItemClickableWords = ({ sentence, sentenceIndex }) => {
       const markId = `word-${sentenceIndex}-${wordIndex}`
       const isSelected = selectedTextData?.id === markId
       return (
-        <mark
+        <span
           key={markId}
           id={markId}
-          className={`me-1 inline-block cursor-pointer bg-background text-foreground hover:bg-primary hover:text-primary-foreground ${
+          className={`me-1 inline-block cursor-pointer hover:bg-primary hover:text-primary-foreground ${
             isSelected ? 'bg-primary text-primary-foreground' : ''
           }`}
           onClick={() => handleClick(word, markId)}
         >
           {word}
-        </mark>
+        </span>
       )
     })
   }, [sentence, sentenceIndex, selectedTextData?.id, dispatch])
