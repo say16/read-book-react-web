@@ -3,8 +3,8 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { selectSentences } from '@/store/slices/pdfViewerSlice'
 import { IconBlockquote, IconTextGrammar } from '@tabler/icons-react'
 import { useSelector } from 'react-redux'
-import Flag from 'react-flagkit'
 import SentenceItemClickableWords from '@/components/atoms/sentence-item-clickable-words'
+import { FlagIcon } from 'react-flag-kit'
 
 function SentenceSection() {
   const sentences = useSelector(selectSentences)
@@ -21,13 +21,13 @@ function SentenceSection() {
             {sentences?.map((sentence, sentenceIndex) => (
               <div key={sentenceIndex} className='flex flex-col gap-1 py-2'>
                 <div className='inline-flex gap-1'>
-                  <Flag country='US' className='mt-0.5 inline-block size-4 rounded-full object-cover' />
+                  <FlagIcon code='US' className='mt-0.5 inline-block size-4 rounded-full object-cover' />
                   <span>
                     <SentenceItemClickableWords sentence={sentence} sentenceIndex={sentenceIndex} />
                   </span>
                 </div>
                 <div className='inline-flex gap-1'>
-                  <Flag country='TR' className='mt-0.5 inline-block size-4 rounded-full object-cover' />
+                  <FlagIcon code='TR' className='mt-0.5 inline-block size-4 rounded-full object-cover' />
                   <span className='cursor-not-allowed opacity-50'>
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quae obcaecati dolores minus reprehenderit
                     eligendi.
